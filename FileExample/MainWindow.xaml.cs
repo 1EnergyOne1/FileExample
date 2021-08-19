@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
-
+using Microsoft.Win32;
 
 namespace FileExample
 {
@@ -22,10 +22,12 @@ namespace FileExample
     /// </summary>
     public partial class MainWindow : Window
     {
+        
+
         public MainWindow()
         {
             InitializeComponent();
-        }
+        }         
 
         /// <summary>
         /// Считывание из файла символов, кроме знаков "!,№,;,%....."
@@ -34,8 +36,18 @@ namespace FileExample
         /// <param name="e"></param>
         private async void ButtonFile_Click(object sender, RoutedEventArgs e)
         {
-            string fileName = @"C:\Users\energ\Desktop\C#\С#8\Test\FileExample\FileExample\testfile.txt";
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.FileName = "Document"; // Default file name
+            dlg.DefaultExt = ".txt"; // Default file extension
+            dlg.Filter = "All Files|*.*"; // Filter files by extension
 
+            // Show open file dialog box
+            Nullable<bool> results = dlg.ShowDialog();
+
+            
+            // поместить путь в переменнную для вызова в конструкторе OpenText
+            string fileName = dlg.FileName;
+           
 
             char[] result;
             StringBuilder builder = new StringBuilder();
@@ -56,6 +68,8 @@ namespace FileExample
             TextFile.Text = builder.ToString();
         }
 
+        
+
         /// <summary>
         /// Запись данных из TextBox в файл
         /// </summary>
@@ -69,6 +83,8 @@ namespace FileExample
 
             File.WriteAllText(System.IO.Path.Combine(docPath, @"C:\Users\energ\Desktop\C#\С#8\Test\FileExample\FileExample\testfile.txt"), textReaderText);
 
-        }
+        }        
+
+        
     }
 }
