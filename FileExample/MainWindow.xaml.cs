@@ -36,24 +36,24 @@ namespace FileExample
         {
             string fileName = @"C:\Users\energ\Desktop\C#\С#8\Test\FileExample\FileExample\testfile.txt";
 
-            string[] lines = Strings.Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim('=')).ToArray();
-            //char[] result;
-            //StringBuilder builder = new StringBuilder();
 
-            //using (StreamReader reader = File.OpenText(fileName))
-            //{
-            //    result = new char[reader.BaseStream.Length];
-            //    await reader.ReadAsync(result, 0, (int)reader.BaseStream.Length);
-            //}
+            char[] result;
+            StringBuilder builder = new StringBuilder();
 
-            //foreach (char c in result)
-            //{
-            //    if (char.IsLetterOrDigit(c) || char.IsWhiteSpace(c))
-            //    {
-            //        builder.Append(c);
-            //    }
-            //}
-            //TextFile.Text = builder.ToString();
+            using (StreamReader reader = File.OpenText(fileName))
+            {
+                result = new char[reader.BaseStream.Length];
+                await reader.ReadAsync(result, 0, (int)reader.BaseStream.Length);
+            }
+
+            foreach (char c in result)
+            {
+                if (char.IsLetterOrDigit(c) || char.IsWhiteSpace(c))
+                {
+                    builder.Append(c);
+                }
+            }
+            TextFile.Text = builder.ToString();
         }
 
         /// <summary>
